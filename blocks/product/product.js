@@ -1,36 +1,32 @@
 export default async function decorate(block) {
-  const [nameWrapper, descWrapper, imageWrapper, priceWrapper] = [...block.children].map((c) => c.firstElementChild);
-
-  const productDiv = document.createElement('div');
-  productDiv.className = 'product-container';
-
-  // Add the image on the left/top
-  if (imageWrapper) {
-    imageWrapper.classList.add('product-image');
-    productDiv.append(imageWrapper);
-  }
-
-  // Group text content together
-  const textContent = document.createElement('div');
-  textContent.className = 'product-text-content';
-
-  if (nameWrapper) {
-    nameWrapper.classList.add('product-name');
-    textContent.append(nameWrapper);
-  }
-
-  if (descWrapper) {
-    descWrapper.classList.add('product-description');
-    textContent.append(descWrapper);
-  }
-
-  if (priceWrapper) {
-    priceWrapper.classList.add('product-price');
-    textContent.append(priceWrapper);
-  }
-
-  productDiv.append(textContent);
+  const [nameWrap, descWrap, imageWrap, priceWrap] = [...block.children].map(
+    (c) => c.firstElementChild,
+  );
 
   block.innerHTML = '';
-  block.append(productDiv);
+
+  if (imageWrap) {
+    imageWrap.classList.add('image');
+    block.append(imageWrap);
+  }
+
+  const textContent = document.createElement('div');
+  textContent.className = 'content';
+
+  if (nameWrap) {
+    nameWrap.classList.add('name');
+    textContent.append(nameWrap);
+  }
+
+  if (descWrap) {
+    descWrap.classList.add('description');
+    textContent.append(descWrap);
+  }
+
+  if (priceWrap) {
+    priceWrap.classList.add('price');
+    textContent.append(priceWrap);
+  }
+
+  block.append(textContent);
 }
